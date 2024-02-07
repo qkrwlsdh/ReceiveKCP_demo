@@ -1,0 +1,34 @@
+# application-private.yml
+spring:
+  datasource:
+#    url: jdbc:mysql://db-kllgv-fkr.cdb.fin-ntruss.com:13306/PRODPG?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC&useLegacyDatetimeCode=false  # 배포 서버 URL
+    url: jdbc:mysql://221.168.38.179:2207/PRODPG?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false  # 로컬 URL
+    username: bankedin  # -> MySQL username 입력
+    password: DB_admin12!@  # -> MySQL password 입력
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  main:
+    allow-circular-references: true
+  jpa:
+    hibernate:
+      ddl-auto: none
+#    hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        physical_naming_strategy: com.example.demo.config.SnakeCasePhysicalNamingStrategy
+        show_sql: true  # 하단의 logging.level.org.hibernate.SQL: debug 와 같음
+        format_sql: true  # 보기 쉽게 format 해줌
+        highlight_sql: true # ANSI escape codes 를 사용 하여 색 부여
+        use_sql_comments: true  # 보다 쉬운 디버깅을 위해 SQL 내부에 /* */의 주석을 추가
+        default_batch_fetch_size: 100 # 배치 전략을 위해 필요
+        jdbc:
+          time_zone: UTC
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+logging:
+  level:
+    org.hibernate.orm.jdbc.bind: trace  # 바인딩된 파라미터 출력
+#    org.hibernate.SQL: debug
+
+server:
+  port: 8081
